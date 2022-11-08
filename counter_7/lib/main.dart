@@ -133,6 +133,9 @@ class _MyHomePageState extends State<MyHomePage> {
               tooltip: 'Increment',
               child: const Icon(Icons.add),
             ),
+
+            // Tidak menampilkan decrement button saat counter-nya nol
+            if(_counter > 0)
             FloatingActionButton(
               onPressed: _decrementCounter,
               tooltip: 'Decrement',
