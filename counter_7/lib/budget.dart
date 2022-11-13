@@ -209,7 +209,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                 Padding(
                 // Menggunakan padding
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Tanggal yang dipilih: '+ DateFormat('EEEE, MMMM d, yyyy').format(tanggal)),
+                  child: Text('Tanggal yang dipilih: '+ DateFormat('EEEE, MMMM d, yyyy').format(tanggal), style: TextStyle(fontSize: 15)),
                 ),
 
                 TextButton(
@@ -352,7 +352,7 @@ class _BudgetDataPageState extends State<BudgetDataPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text( 'Harri dan Tanggal: '+ DateFormat('EEEE, MMMM d, yyyy').format(TanggalBuat[index]), style: TextStyle(fontSize: 15),
+                        child: Text( 'Hari dan Tanggal: '+ DateFormat('EEEE, MMMM d, yyyy').format(TanggalBuat[index]), style: TextStyle(fontSize: 15),
                             textAlign: TextAlign.left),
                       ),
                     ),
