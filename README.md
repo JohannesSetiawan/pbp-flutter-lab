@@ -72,3 +72,45 @@ Container(
       ),
 ```
 Kode tersebut akan membuat 2 button. Button yang pertama adalah button dengan ikon tanda tambah (+) yang akan menambahkan nilai counter dengan menjalankan fungsi ```_incrementCounter()``` saat ditekan. Button yang kedua adalah button dengan ikon tanda minus (-) yang akan mengurangkan nilai counter dengan menjalankan fungsi ```_decrementCounter()``` saat ditekan.
+
+
+# Tugas 7
+
+### Jelaskan perbedaan ```Navigator.push``` dan ```Navigator.pushReplacement```.
+```Navigator.pushReplacement``` mengganti route yang digunakan dan menghapus route yang lama sehingga kita tidak bisa kembali ke route yang lama, sedangkan ```Navigator.push``` tidak menghapus route yang lama sehingga kita bisa kembali ke route yang lama.
+
+### Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+- Scaffold --> Menyediakan banyak widget yang digunakan
+- Column --> Menyusun widget secara vertikal
+- Navigator --> Mengganti halaman aplikasi ke halaman baru
+- Text --> Menampilkan text
+- Form --> Membuat _form_ yang dapat diisi
+- Container --> Menampung widget-widget dan komponen yang lain
+- Padding --> Mengatur tata letak widget dan komponen yang ada
+- Icon --> Membuat ikon sehingga aplikasi yang dibuat lebih _user-friendly_ dan enak dilihat
+- Align --> Mengatur posisi suatu komponen/widget
+- Row --> Menyusun widget secara horizontal
+- Drawer --> Membuat drawer untuk berpindah halaman
+- ListTile --> Membuat list yang bisa ditekan
+- MaterialPageRoute --> Mengganti keseluruhan halaman menjadi halaman baru
+- SingleChildScrollView --> 
+- AppBar --> 
+- OutlineInputBorder -->
+- TextFormField --> 
+- DropdownButton --> 
+- DropdownMenuItem --> 
+- ElevatedButton --> 
+- ButtonStyle --> 
+- TextStyle --> 
+
+### Sebutkan jenis-jenis _event_ yang ada pada Flutter (contoh: ```onPressed```).
+- onPressed
+- onSaved
+- onChanged
+- onTap
+
+### Jelaskan bagaimana cara kerja ```Navigator``` dalam "mengganti" halaman dari aplikasi Flutter.
+
+
+### Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas.
+1. 
