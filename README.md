@@ -80,7 +80,7 @@ Kode tersebut akan membuat 2 button. Button yang pertama adalah button dengan ik
 ```Navigator.pushReplacement``` mengganti route yang digunakan dan menghapus route yang lama sehingga kita tidak bisa kembali ke route yang lama, sedangkan ```Navigator.push``` tidak menghapus route yang lama sehingga kita bisa kembali ke route yang lama.
 
 ### Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
-- Scaffold --> Menyediakan banyak widget yang digunakan
+- Scaffold --> Menyediakan banyak widget yang digunakan dan tempat widget yang memenuhi satu halaman
 - Column --> Menyusun widget secara vertikal
 - Navigator --> Mengganti halaman aplikasi ke halaman baru
 - Text --> Menampilkan text
@@ -93,15 +93,16 @@ Kode tersebut akan membuat 2 button. Button yang pertama adalah button dengan ik
 - Drawer --> Membuat drawer untuk berpindah halaman
 - ListTile --> Membuat list yang bisa ditekan
 - MaterialPageRoute --> Mengganti keseluruhan halaman menjadi halaman baru
-- SingleChildScrollView --> 
-- AppBar --> 
-- OutlineInputBorder -->
-- TextFormField --> 
-- DropdownButton --> 
-- DropdownMenuItem --> 
-- ElevatedButton --> 
-- ButtonStyle --> 
-- TextStyle --> 
+- SingleChildScrollView --> Mmebuat widget yang bisa di-_scroll_
+- AppBar --> Membuat _navigation bar_ yang terletak di paling atas
+- OutlineInputBorder --> Membuat _border_ pada InputDecorations
+- TextFormField --> Membuat tempat input teks pada _form_
+- DropdownButton --> Membuat _button_ untuk menu _dropdown_
+- DropdownMenuItem --> Mendefinisikan _item-item_ yang ada di menu _dropdown_
+- ElevatedButton --> Membuat _button_ untuk melakukan pemilihan tanggal pada _form_
+- TextButton --> Membuat _button_ untuk submisi _form_
+- ButtonStyle --> Membuat _style_ untuk widget _TextButton_
+- TextStyle --> Membuat _style_ untuk widget _Text_
 
 ### Sebutkan jenis-jenis _event_ yang ada pada Flutter (contoh: ```onPressed```).
 - onPressed
@@ -110,7 +111,42 @@ Kode tersebut akan membuat 2 button. Button yang pertama adalah button dengan ik
 - onTap
 
 ### Jelaskan bagaimana cara kerja ```Navigator``` dalam "mengganti" halaman dari aplikasi Flutter.
-
+Saat menjalankan _method_ ```Navigator.push()```, ```Navigator``` akan menambahkan _screen_ baru ke bagian paling atas dalam _navigation stack_. _Screen_ yang muncul di aplikasi adalah _screen_ yang ada di paling atas dalam _navigation stack_ sehingga _screen_ akan berganti saat ```Navigation``` menjalankan _method_ ```push()```.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas.
-1. 
+1. Membuat _file_ ```budgetForm.dart``` yang berisi halaman form.
+2. Membuat _class_ ```BudgetFormPage``` lalu membuat _class_ ```_BudgetFormPageState``` sebagai _root_ untuk halaman budget form.
+3. Membuat _class attribute_ pada _class_ ```_BudgetFormPageState```. Atribut yang dibuat adalah
+```
+  final _formKey = GlobalKey<FormState>(); --> untuk _form key_
+  String _judul = ""; --> menyimpan judul budget yang di-_input_ pengguna
+  int nominal = 0; --> menyimpan nominal budget yang di-_input_ pengguna
+  String jenis = 'Pemasukan'; --> menyimpan jenis budget yang di-_input_ pengguna
+  List<String> listJenis = ['Pemasukan', 'Pengeluaran']; --> menyimpan jenis-jenis budget yang bisa dipilih pengguna
+  DateTime tanggal = DateTime.now(); --> menyimpan tanggal budget yang dipilih pengguna
+```
+4. Membuat _method_ ```isNumeric``` untuk mengecek apakah _input_ pengguna ke nominal adalah angka.
+5. Membuat _method_ ```build``` untuk membangun halaman _form_. _Method_ ini akan mengembalikan sebuah Scaffold yang berisi appBar, drawer, dan body. Body dari Scaffold akan berisi _form_ yang bisa digunakan pengguna. Drawer akan berisi sebuah _drawer menu_ untuk berpindah halaman. AppBar akan berisi sebuah _navigation bar_ yang menyimpan judul halaman dan _drawer menu_.
+6. _Form_ yang ada akan berisi satu TextFormField untuk memasukkan judul budget, satu TextFormField yang masukannya divalidasi sebagai _integer_ untuk memasukkan nominal budget, sebuah DropdownButton untuk _dropdown menu_ saat memilih jenis budget, dan sebuah ElevatedButton yang berisi sebuah _date picker_ untuk pengguna memilih tanggal untuk budget. Di bawah ElevatedButton akan terdapat sebuah Text yang menampilkan tanggal yang dipilih pengguna. Di bagian paling bawah terdapat sebuah TextButton untuk melakukan submisi _form._
+7. Menambahkan _event_ ```onPressed``` untuk TextButton yang akan menambahkan data budget yang tervalidasi ke dalam _list_ yang ada di halaman budget data dengan menjalankan _method_ ```addBudget```. Isinya adalah
+```
+if (_formKey.currentState!.validate()) {
+      addBudget(_judul, nominal, jenis, tanggal);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const BudgetFormPage()),
+      );
+}
+```
+8. Membuat _class_ ```BudgetDataPage``` lalu membuat _class_ ```_BudgetDataPageState``` sebagai _root_ untuk halaman budget data.
+9. Membuat _class attribute_ pada _class_ ```_BudgetDataPageState```. Atribut yang dibuat adalah
+```
+  static List<String> Judul = []; --> List untuk judul budget yang sudah dimasukkan
+  static List<int> Nominal = []; --> List untuk nominal budget yang sudah dimasukkan
+  static List<String> Jenis = []; --> list jenis untuk budget yang sudah dimasukkan
+  static List<DateTime> TanggalBuat = []; --> List tanggal untuk budget yang sudah dimasukkan
+```
+10.  Membuat _method_ ```build``` untuk membangun halaman _data_. _Method_ ini akan mengembalikan sebuah Scaffold yang berisi appBar, drawer, dan body. Body dari Scaffold akan berisi kumpulan _card_ yang berisi data budget yang sudah dimasukkan pengguna di halaman _form_. Drawer akan berisi sebuah _drawer menu_ untuk berpindah halaman. AppBar akan berisi sebuah _navigation bar_ yang menyimpan judul halaman dan _drawer menu_.
+11. Membuat _file_ ```drawer.dart``` yang berisi fungsi yang mengembalikan _drawer menu_ untuk navigasi halaman pada halaman Program Counter, Form Budget, dan Data Budget. 
+12. Menambahkan baris ```intl: "^0.17.0"``` ke dalam ```dev_dependencies``` di ```pubspec.yaml``` untuk menggunakan _library_ ```intl```.
+13. Menambahkan _drawer_ ke dalam Scaffold yang di-_return_ oleh _method_ ```build``` dari _class_ ```_MyHomePageState```.
