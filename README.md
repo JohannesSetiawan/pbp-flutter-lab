@@ -103,6 +103,7 @@ Kode tersebut akan membuat 2 button. Button yang pertama adalah button dengan ik
 - TextButton --> Membuat _button_ untuk submisi _form_
 - ButtonStyle --> Membuat _style_ untuk widget _TextButton_
 - TextStyle --> Membuat _style_ untuk widget _Text_
+- MaterialStateProperty --> Mendefinisikan _style_ pada ButtonStyle
 
 ### Sebutkan jenis-jenis _event_ yang ada pada Flutter (contoh: ```onPressed```).
 - onPressed
