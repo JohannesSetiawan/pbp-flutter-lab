@@ -1,6 +1,7 @@
-import 'package:counter_7/main.dart';
+import 'package:counter_7/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:counter_7/budgetData.dart';
 
 class BudgetFormPage extends StatefulWidget {
   const BudgetFormPage({super.key});
@@ -33,43 +34,7 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
       ),
 
       // Menambahkan drawer menu
-      drawer: Drawer(
-        child: Column(
-          children: [
-            // Menambahkan clickable menu
-            ListTile(
-              title: const Text('Counter'),
-              onTap: () {
-                // Route menu ke halaman utama
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Form Budget'),
-              onTap: () {
-                // Route menu ke halaman form budget
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const BudgetFormPage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Data Budget'),
-              onTap: () {
-                // Route menu ke halaman data budget
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const BudgetDataPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: buildDrawer(context),
 
       // Form
       body: Form(
@@ -222,11 +187,8 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _BudgetDataPageState.Judul.add(_judul);
-                      _BudgetDataPageState.Nominal.add(nominal);
-                      _BudgetDataPageState.Jenis.add(jenis);
-                      _BudgetDataPageState.TanggalBuat.add(tanggal);
-                      Navigator.push(
+                      addBudget(_judul, nominal, jenis, tanggal);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const BudgetFormPage()),
                       );
@@ -242,127 +204,3 @@ class _BudgetFormPageState extends State<BudgetFormPage> {
   }
 }
 
-class BudgetDataPage extends StatefulWidget {
-  const BudgetDataPage({super.key});
-
-  @override
-  State<BudgetDataPage> createState() => _BudgetDataPageState();
-}
-
-class _BudgetDataPageState extends State<BudgetDataPage> {
-
-  static List<String> Judul = [];
-  static List<int> Nominal = [];
-  static List<String> Jenis = [];
-  static List<DateTime> TanggalBuat = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Data Budget'),
-      ),
-
-      // Menambahkan drawer menu
-      drawer: Drawer(
-        child: Column(
-          children: [
-            // Menambahkan clickable menu
-            ListTile(
-              title: const Text('Counter'),
-              onTap: () {
-                // Route menu ke halaman utama
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Form Budget'),
-              onTap: () {
-                // Route menu ke halaman form budget
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BudgetFormPage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Data Budget'),
-              onTap: () {
-                // Route menu ke halaman data budget
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BudgetDataPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-
-      body:ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                  children:[
-
-                    Padding(
-                      // Menggunakan padding
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                              Judul[index], style: TextStyle(fontSize: 25),
-                              textAlign: TextAlign.left),
-                        ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          // Menggunakan padding
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(Nominal[index].toString(), style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.left),
-                          ),
-                        ),
-                        Padding(
-                          // Menggunakan padding
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: Text(Jenis[index], style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.right),
-                          ),
-                        ),
-                      ]
-                      ),
-
-                    Padding(
-                      // Menggunakan padding
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text( 'Hari dan Tanggal: '+ DateFormat('EEEE, MMMM d, yyyy').format(TanggalBuat[index]), style: TextStyle(fontSize: 15),
-                            textAlign: TextAlign.left),
-                      ),
-                    ),
-                  ],
-              )
-            ),
-          );
-        },
-        itemCount: Judul.length,
-      ),
-    );
-  }
-}
