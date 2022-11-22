@@ -159,8 +159,8 @@ Ya, kita bisa mengambil data JSON manual tanpa membuat objek terlebih dahulu. Ak
 
 ### Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
 - FutureBuilder --> Membangun _widget_ berdasarkan _snapshot_ terbaru
-- AsyncSnapshot --> 
-- CircularProgressIndicator --> 
+- AsyncSnapshot --> Membuat _snapshot_ secara asinkronus
+- CircularProgressIndicator --> Membuat _progress indicator_ berbentuk lingkaran
 - Center --> Menyusun komponen supaya beradar di tengah halaman
 - Column --> Menyusun _widget_ secara vertikal
 - Text --> Menampilkan teks
@@ -182,7 +182,45 @@ Ya, kita bisa mengambil data JSON manual tanpa membuat objek terlebih dahulu. Ak
 - Scaffold --> Menyimpan setiap komponen di dalamnya dan memenuhi seluruh halaman
 
 ### Jelaskan mekanisme pengambilan data dari json hingga dapat ditampilkan pada Flutter.
-
+Pengambilan data pada Flutter dimulai dengan membuat _http request_ ke _web service_ menggunakan _dependency_ ```http```. Setelah itu, _http request_ akan menghasilkan sebuah _response_ dengan _body_ yang berisi data yang kita mau ambil dari web. Data tersebut lalu dikonversi ke model yang dibuat untuk data yang kita ambil dari web. Lalu, data tersebut ditampilkan dengan _widget_ ```FutureBuilder```.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
-1. 
+1. Membuat _file_ ```mywatchlist.dart``` yang akan menyimpan model yang digunakan untuk menyimpan data _mywatchlist_.
+2. Membuat _file_ ```mywatchlistPage.dart``` yang berisi dua buah halaman. Halaman ```MyWatchListPage``` digunakan untuk menampilkan _list_ dari _watch list_. Halaman ```DetailPage``` digunakan untuk menampilkan detail dari setiap _watch list_.
+3. Membuat _file_ ```createWatchList.dart``` untuk mengambil data _watch lists_ dari halaman web Heroku dan menkonversinya ke sebuah _list_ dari objek ```Mywatchlist```. Isi fungsi ```fetchWatchList()``` yang digunakan untuk mengambil data dari web adalah sebagai berikut:
+```
+Future<List<Mywatchlist>> fetchWatchList() async {
+
+  var url = Uri.parse('https://tugas2-johannessetiawan.herokuapp.com/mywatchlist/json/');
+
+  var response = await http.get(
+    url,
+  );
+
+  // melakukan decode response menjadi bentuk json
+  var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+  // melakukan konversi data json menjadi object Mywatchlist
+  List<Mywatchlist> listMywatchlist = [];
+  for (var d in data) {
+    if (d != null) {
+      String model = d["model"].toString();
+      int pk = int.parse(d["pk"].toString());
+      var field = d["fields"];
+      bool watched = field["watched"].toString() == "Yes" ? true : false;
+      String title = field["title"].toString();
+      String rating = field["rating"].toString();
+      String releaseDate = field["release_date"].toString();
+      String review = field["review"].toString();
+      var fields = Fields(watched: watched, title: title, rating: rating, releaseDate: releaseDate, review: review);
+      var watchlist = Mywatchlist(model: model, pk: pk, fields: fields);
+      listMywatchlist.add(watchlist);
+    }
+  }
+
+  return listMywatchlist;
+}
+```
+5. Mengonstruksi halaman ```MyWatchListPage``` yang akan mempunyai ```body``` berupa FutureBuilder. FutureBuilder itu akan menampilkan sebuah _list_ dari data _watch list_ yang sudah diambil dari web Heroku. Setiap _watch list_ memiliki warna dan _checkbox_ masing-masing tergantung dari status _watched_ masing-masing _watch list_. Setiap _watch list_ juga dapat diklik. Saat diklik, halaman akan berpindah ke halaman detail dari film yang judulnya diklik pada halaman _watch list_.
+6. Mengonstruksi halaman ```DetailPage``` yang akan mempunyai ```body``` berupa sebuah Column yang berisi kumpulan teks yang berupa detail dari setiap film yang ada di _watch list_. Halaman ```DetailPage``` menerima sebuah _instance_ dari ```Mywatchlist``` pada saat inisiasi halaman. Pada bagian bawah halaman ini terdapat sebuah tombol yang berguna untuk kembali ke halaman _watch list_.
+7. Menambahkan ListTile baru pada _file_ ```drawer.dart``` untuk navigasi ke halaman _watch list_.
