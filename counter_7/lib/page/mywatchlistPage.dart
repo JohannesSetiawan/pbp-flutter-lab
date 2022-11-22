@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:counter_7/utilities%20function/drawer.dart';
 import 'package:counter_7/model/mywatchlist.dart';
-import 'package:counter_7/utilities function/createWatchList.dart';
+import 'package:counter_7/utilities function/fetchWatchList.dart';
 
 class MyWatchlistApp extends StatelessWidget {
   const MyWatchlistApp({super.key});
