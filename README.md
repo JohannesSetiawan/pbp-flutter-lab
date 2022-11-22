@@ -151,3 +151,38 @@ if (_formKey.currentState!.validate()) {
 11. Membuat _file_ ```drawer.dart``` yang berisi fungsi yang mengembalikan _drawer menu_ untuk navigasi halaman pada halaman Program Counter, Form Budget, dan Data Budget. 
 12. Menambahkan baris ```intl: "^0.17.0"``` ke dalam ```dev_dependencies``` di ```pubspec.yaml``` untuk menggunakan _library_ ```intl```.
 13. Menambahkan _drawer_ ke dalam Scaffold yang di-_return_ oleh _method_ ```build``` dari _class_ ```_MyHomePageState```.
+
+# Tugas 9
+
+### Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Ya, kita bisa mengambil data JSON manual tanpa membuat objek terlebih dahulu. Akan tetapi, hal tersebut tidak baik karena kegunaan model itu untuk membuat representasi objek dari suatu data JSON yang akan dibuat menjadi _list of objects_ sehingga saat kita tidak menggunakan model, maka kita harus membuat satu _list_ untuk setiap atribut untuk menyimpan nilai-nilai dari atribut tersebut.
+
+### Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+- FutureBuilder --> Membangun _widget_ berdasarkan _snapshot_ terbaru
+- AsyncSnapshot --> 
+- CircularProgressIndicator --> 
+- Center --> Menyusun komponen supaya beradar di tengah halaman
+- Column --> Menyusun _widget_ secara vertikal
+- Text --> Menampilkan teks
+- TextStyle --> Melakukan _styling_ pada Text
+- SizedBox --> Membuat komponen _box_ yang ukurannya tergantung _parent_-nya
+- ListView --> Membuat _list_ dari _widget_
+- InkWell --> Membuat _widget_ dapat melakukan _event-handling_
+- Container --> Mennyimpan _widget_
+- BoxDecoration --> Membuat dekorasi
+- Border --> Membuat _border_
+- BoxShadow --> membuat supaya _container_ memiliki _shadow_
+- Padding --> Mengatur _widget_ supaya ada jarak antar-_widget_
+- Row --> Menyusun _widget_ secara horizontal
+- Align --> Mengatur letak setiap _widget_ yang menjadi anaknya
+- Checkbox --> Membuat _checkbox_
+- Colors --> memberikan warna untuk beberapa _widgets_
+- Navigator --> berpindah halaman
+- MaterialPageRoute --> mengganti _screen_ menjadi halaman/_screen_ yang baru
+- Scaffold --> Menyimpan setiap komponen di dalamnya dan memenuhi seluruh halaman
+
+### Jelaskan mekanisme pengambilan data dari json hingga dapat ditampilkan pada Flutter.
+
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+1. 
