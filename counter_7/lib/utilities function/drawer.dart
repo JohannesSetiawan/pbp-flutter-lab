@@ -1,4 +1,4 @@
-import 'package:counter_7/page/main.dart';
+import 'package:counter_7/main.dart';
 import 'package:flutter/material.dart';
 import 'package:counter_7/page/budgetForm.dart';
 import 'package:counter_7/page/budgetData.dart';

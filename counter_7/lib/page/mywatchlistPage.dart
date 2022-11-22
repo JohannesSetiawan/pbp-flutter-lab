@@ -233,11 +233,14 @@ class DetailPage extends StatelessWidget {
                   textAlign: TextAlign.left),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back, color: Colors.blueAccent),
+          FloatingActionButton.extended(
+            label: Text('Back to My Watch List'), // <-- Text
+            backgroundColor: Colors.black,
+            icon: Icon( // <-- Icon
+              Icons.arrow_back, color: Colors.blueAccent,
+              size: 24.0,
+            ),
+            onPressed: () { Navigator.pop(context);},
           ),
         ],
       ),
